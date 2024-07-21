@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\CarController;
+use App\Http\Controllers\ClassController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ContactController;
 use Illuminate\Http\Request;
@@ -191,6 +192,13 @@ Route::prefix('accounts')->group(function(){
 
     Route::get('cars/create',[CarController::class, 'create'])->name(('cars.create'));
     Route::post('cars',[CarController::class, 'store'])->name('cars.store');
+
+
+
+    //task 4
+
+    Route::get('class/create',[ClassController::class, 'create'])->name(('classes.create'));
+    Route::post('classes',[ClassController::class, 'store'])->name('classes.store');
     
 
 
