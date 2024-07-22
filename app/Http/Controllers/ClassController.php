@@ -32,8 +32,8 @@ class ClassController extends Controller
     {
         $data = [
             'className' => $request->className,
-            'capacity' => $request->capacity,
             'price' => $request->price,
+            'capacity' => $request->capacity,
             'time1' => $request->time1,
             'time2' => $request->time2,
             'fulled' => isset($request->fulled),

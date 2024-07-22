@@ -42,8 +42,8 @@
           @foreach ($classes as $class)
             <tr>
               <td scope="row">{{$class['className']}}</td>
-              <td>{{$class['capacity']}}</td>
               <td>{{$class['price']}}</td>
+              <td>{{$class['capacity']}}</td>
               <td>{{$class['time1']}}</td>
               <td>{{$class['time2']}}</td>
               <td>{{$class['fulled']==1 ? "yes":"No"}}</td>
