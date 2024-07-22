@@ -204,10 +204,16 @@ Route::prefix('accounts')->group(function(){
 
     
     
+    Route::get('cars',[CarController::class, 'index']);
+    Route::get('cars/{id}',[CarController::class, 'edit'])->name('cars.edit');
 
 
+    //task5
 
-   
+
+    Route::get('classes',[ClassController::class, 'index']);
+    Route::get('classes/{id}',[ClassController::class, 'edit'])->name('classes.edit');
+
     
     
 

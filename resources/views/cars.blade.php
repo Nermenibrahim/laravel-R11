@@ -23,31 +23,27 @@
   <main>
     <div class="container my-5">
       <div class="bg-light p-5 rounded">
-        <h2 class="fw-bold fs-2 mb-5 pb-2">All Classes</h2>
+        <h2 class="fw-bold fs-2 mb-5 pb-2">All Cars</h2>
         <table class="table table-hover">
           <thead>
             
             <tr class="table-dark">
-              <th scope="col">Class Name</th>
+              <th scope="col">Car Title</th>
               <th scope="col">Price</th>
-              <th scope="col">capacity</th>
-              <th scope="col">time-to</th>
-              <th scope="col">time-from</th>
-              <th scope="col">fulled</th>
+              <th scope="col">Description</th>
+              <th scope="col">Published</th>
               <th scope="col">Edit</th>
             </tr>
           
           </thead>
           <tbody>
-          @foreach ($classes as $class)
+          @foreach ($cars as $car)
             <tr>
-              <td scope="row">{{$class['className']}}</td>
-              <td>{{$class['capacity']}}</td>
-              <td>{{$class['price']}}</td>
-              <td>{{$class['time1']}}</td>
-              <td>{{$class['time2']}}</td>
-              <td>{{$class['fulled']==1 ? "yes":"No"}}</td>
-              <td><a href="{{route('classes.edit', $class['id'])}}">Edit </a></td>
+              <td scope="row">{{$car['carTitle']}}</td>
+              <td>{{$car['price']}}</td>
+              <td>{{Str::limit($car['description'], 20 , ' (...)')}}</td>
+              <td>{{$car['published']==1 ? "yes":"No"}}</td>
+              <td><a href="{{route('cars.edit', $car['id'])}}">Edit </a></td>
             </tr>
             @endforeach
           </tbody>

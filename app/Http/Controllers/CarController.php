@@ -12,7 +12,9 @@ class CarController extends Controller
      */
     public function index()
     {
-        //
+        $cars = Car::get();
+
+        return view('cars' , compact('cars'));
     }
 
     /**
@@ -29,19 +31,16 @@ class CarController extends Controller
     public function store(Request $request)
     {
 
-        $carTitle = 'BMW';
-        $price = 12345 ;
-        $description = 'description';
-        $published = true;
+       $data = [
+        'carTitle' => $request->carTitle,
+        'description' => $request->description,
+        'price' => $request->price,
+        'published' => isset($request->published),
+
+       ];
         
 
-        Car::create([
-            'carTitle' => $carTitle,
-            'price' => $price,
-            'description' => $description,
-            'published' => $published,
-
-        ]);
+        Car::create($data);
 
         return 'data added suuccefly';
     }
@@ -58,8 +57,10 @@ class CarController extends Controller
      * Show the form for editing the specified resource.
      */
     public function edit(string $id)
+
     {
-        //
+        $car = Car::findOrFail($id);
+        return view('edit_car' , compact('car'));
     }
 
     /**

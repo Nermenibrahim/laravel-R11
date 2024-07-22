@@ -12,7 +12,9 @@ class ClassController extends Controller
      */
     public function index()
     {
-        //
+        $classes = Classe::get();
+
+        return view('classes' , compact('classes'));
     }
 
     /**
@@ -20,7 +22,7 @@ class ClassController extends Controller
      */
     public function create()
     {
-        return view('classes');
+        return view('add_class');
     }
 
     /**
@@ -28,26 +30,23 @@ class ClassController extends Controller
      */
     public function store(Request $request)
     {
+        $data = [
+            'className' => $request->className,
+            'capacity' => $request->capacity,
+            'price' => $request->price,
+            'time1' => $request->time1,
+            'time2' => $request->time2,
+            'fulled' => isset($request->fulled),
+    
+           ];
+
+
         
-        $className = 'English';
-        $capacity = 20;
-
-        $price = 500;
-        $time1 = "08:00";
-        $time2 = "09:00";
-        $fulled = true;
+       
         
 
-        Classe::create([
-            'className' => $className,
-            'capacity' => $capacity,
-            'price' => $price,
-            'time1' => $time1,
-            'time2' => $time2,
-            'fulled' => $fulled,
-
-        ]);
-        return 'data added suuccefly';
+        Classe::create($data);
+        return 'data added successfully';
     }
 
     /**
@@ -63,7 +62,8 @@ class ClassController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $class = Classe::findOrFail($id);
+        return view('edit_class' , compact('class'));
     }
 
     /**
