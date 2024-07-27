@@ -46,7 +46,7 @@ class ClassController extends Controller
         
 
         Classe::create($data);
-        return 'data added successfully';
+        return redirect()->route('classes.index');
     }
 
     /**
@@ -54,7 +54,9 @@ class ClassController extends Controller
      */
     public function show(string $id)
     {
-        //
+     $class =  Classe::findOrFail($id);
+
+     return view('class-detail' , compact('class'));
     }
 
     /**
@@ -71,7 +73,17 @@ class ClassController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $data = [
+            'className' => $request->className,
+            'capacity' => $request->capacity,
+            'price' => $request->price,
+            'fulled' => isset($request->filled),
+    
+           ];
+
+           Classe::where('id',$id)->update($data);
+
+           return redirect()->route('classes.index');
     }
 
     /**
@@ -79,6 +91,26 @@ class ClassController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        
+        Classe::where('id',$id)->delete();
+        return redirect()->route('classes.index');
+       
     }
+
+
+    public function showDeleted()
+    {
+       
+        $classes = Classe::onlyTrashed()->get();
+
+        return view('trashed-classes', compact('classes') );
+
+    }
+
+
+  
+
+
+
+
 }

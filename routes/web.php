@@ -190,29 +190,44 @@ Route::prefix('accounts')->group(function(){
         return($request->all());
     });
 
-    Route::get('cars/create',[CarController::class, 'create'])->name(('cars.create'));
-    Route::post('cars',[CarController::class, 'store'])->name('cars.store');
+  
 
 
 
-    //task 4
+
+
+    //class controller
 
     Route::get('class/create',[ClassController::class, 'create'])->name(('classes.create'));
     Route::post('classes',[ClassController::class, 'store'])->name('classes.store');
-    
+    Route::get('classes',[ClassController::class, 'index'])->name('classes.index');
+    Route::get('classes/edit/{id}',[ClassController::class, 'edit'])->name('classes.edit');
+    Route::put('classes/update/{id}',[ClassController::class, 'update'])->name('classes.update');
+    Route::get('classes/detail/{id}',[ClassController::class, 'show'])->name('classes.detail');
+    Route::delete('classes/delete/{id}',[ClassController::class, 'destroy'])->name('classes.destroy');
+    Route::get('classes/trashed',[ClassController::class, 'showDeleted'])->name('classes.showDeleted');
 
 
     
     
-    Route::get('cars',[CarController::class, 'index']);
-    Route::get('cars/{id}',[CarController::class, 'edit'])->name('cars.edit');
+
+        //CarController
 
 
-    //task5
+    Route::get('cars',[CarController::class, 'index'])->name('cars.index');
+    Route::get('cars/create',[CarController::class, 'create'])->name(('cars.create'));
+    Route::post('cars',[CarController::class, 'store'])->name('cars.store');
+    Route::get('cars/{id}/edit',[CarController::class, 'edit'])->name('cars.edit');
+    Route::put('cars/{id}',[CarController::class, 'update'])->name('cars.update');
+    Route::get('cars/detail/{id}',[CarController::class, 'show'])->name('cars.detail');
+    Route::get('cars/delete/{id}',[CarController::class, 'destroy'])->name('cars.destroy');
+    Route::get('cars/trashed',[CarController::class, 'showDeleted'])->name('cars.showDeleted');
 
 
-    Route::get('classes',[ClassController::class, 'index']);
-    Route::get('classes/{id}',[ClassController::class, 'edit'])->name('classes.edit');
+    
+
+
+   
 
     
     

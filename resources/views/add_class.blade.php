@@ -25,10 +25,14 @@
       <div class="bg-light p-5 rounded">
         <h2 class="fw-bold fs-2 mb-5 pb-2">Add Class</h2>
         <form action="{{route('classes.store')}}" method="POST" class="px-md-5">
+      
           @csrf
+         
+
           <div class="form-group mb-3 row">
             <label for="" class="form-label col-md-2 fw-bold text-md-end">Class Name:</label>
             <div class="col-md-10">
+             
               <input type="text" placeholder="BMW" class="form-control py-2" name="className" />
             </div>
           </div>

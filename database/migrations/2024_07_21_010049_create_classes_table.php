@@ -19,6 +19,7 @@ return new class extends Migration
             $table->time('time1');
             $table->time('time2');
             $table->boolean('fulled');
+            $table->softDeletes();
             $table->timestamps();
         });
     }
