@@ -30,23 +30,32 @@ class ClassController extends Controller
      */
     public function store(Request $request)
     {
-        $data = [
-            'className' => $request->className,
-            'price' => $request->price,
-            'capacity' => $request->capacity,
-            'time1' => $request->time1,
-            'time2' => $request->time2,
-            'fulled' => isset($request->fulled),
+
+        $data = $request->validate([
+
+            'className' => 'required|alpha_num:ascii',
+            'capacity' => 'required|numeric',
+            'price' => 'required|numeric',
+            'time1' => 'required',
+            'time2' => 'required',
+            
     
-           ];
-
-
-        
+    
+           ]);
        
-        
 
-        Classe::create($data);
+       
+            $data['fulled'] = isset($request->fulled) ;
+
+           
+        //dd($data);
+
+
+
+           Classe::create($data);
         return redirect()->route('classes.index');
+
+
     }
 
     /**
@@ -73,13 +82,22 @@ class ClassController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        $data = [
-            'className' => $request->className,
-            'capacity' => $request->capacity,
-            'price' => $request->price,
-            'fulled' => isset($request->filled),
+        
+        $data = $request->validate([
+
+            'className' => 'required|alpha_num:ascii',
+            'capacity' => 'required|numeric',
+            'price' => 'required|numeric',
+            'time1' => 'required',
+            'time2' => 'required',
+            
     
-           ];
+    
+           ]);
+
+           $dat['fulled'] = isset($request->fulled) ;
+
+           dd($data);
 
            Classe::where('id',$id)->update($data);
 
@@ -104,6 +122,22 @@ class ClassController extends Controller
         $classes = Classe::onlyTrashed()->get();
 
         return view('trashed-classes', compact('classes') );
+
+    }
+
+
+    public function restore(string $id)
+    {
+        Classe::where('id',$id)->restore();
+        return redirect()->route('classes.showDeleted');
+
+    }
+
+
+    public function forceDelete(string $id)
+    {
+        Classe::where('id',$id)->forceDelete();
+        return redirect()->route('classes.index');
 
     }
 

@@ -31,13 +31,19 @@ class CarController extends Controller
     public function store(Request $request)
     {
 
-       $data = [
-        'carTitle' => $request->carTitle,
-        'description' => $request->description,
-        'price' => $request->price,
-        'published' => isset($request->published),
+       $data = $request->validate([
 
-       ];
+        'carTitle' => 'required|string',
+        'description' => 'required|string|max:200',
+        'price' => 'required|numeric',
+        
+
+
+       ]);
+       
+        $data['published'] = isset($request->published) ;
+
+       dd($data);
         
 
         Car::create($data);
@@ -100,6 +106,22 @@ class CarController extends Controller
         $cars = Car::onlyTrashed()->get();
 
         return view('trashed', compact('cars') );
+
+    }
+
+
+    public function restore(string $id)
+    {
+        Car::where('id',$id)->restore();
+        return redirect()->route('cars.showDeleted');
+
+    }
+
+
+    public function forceDelete(string $id)
+    {
+        Car::where('id',$id)->forceDelete();
+        return redirect()->route('cars.index');
 
     }
    

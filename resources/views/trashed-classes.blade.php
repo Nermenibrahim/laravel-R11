@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>All Car</title>
+  <title>All Classes</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
     integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -33,7 +33,9 @@
               <th scope="col">price</th>
               <th scope="col">fulled</th>
               <th scope="col">Edit</th>
-              <th scope="col">permenant delete</th>
+              <th scope="col">Restore</th>
+
+              <th scope="col">force delete</th>
               
             </tr>
           
@@ -46,7 +48,18 @@
               <td>{{$class['price']}}</td>
               <td>{{$class['fulled']==1 ? "yes":"No"}}</td>
               <td><a href="">Edit </a></td>
-              <td><a href="" >delete </td>
+              <td><form action="{{route('classes.restore',$class['id'])}}" method="POST"> 
+                @csrf
+                @method('patch')
+                <button type="submit" class="btn btn-link m-0 p-0">restore</button>
+              </form></td>
+              
+
+              <td><form action="{{route('classes.forceDelete',$class['id'])}}" method="POST"> 
+                @csrf
+                @method('delete')
+                <button type="submit" class="btn btn-danger m-1 p-1">delete</button>
+              </form></td>
               
             </tr>
             @endforeach

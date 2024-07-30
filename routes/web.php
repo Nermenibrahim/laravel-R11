@@ -206,6 +206,8 @@ Route::prefix('accounts')->group(function(){
     Route::get('classes/detail/{id}',[ClassController::class, 'show'])->name('classes.detail');
     Route::delete('classes/delete/{id}',[ClassController::class, 'destroy'])->name('classes.destroy');
     Route::get('classes/trashed',[ClassController::class, 'showDeleted'])->name('classes.showDeleted');
+    Route::patch('classes/{id}',[ClassController::class, 'restore'])->name('classes.restore');
+    Route::delete('classes/{id}',[ClassController::class, 'forceDelete'])->name('classes.forceDelete');
 
 
     
@@ -222,6 +224,8 @@ Route::prefix('accounts')->group(function(){
     Route::get('cars/detail/{id}',[CarController::class, 'show'])->name('cars.detail');
     Route::get('cars/delete/{id}',[CarController::class, 'destroy'])->name('cars.destroy');
     Route::get('cars/trashed',[CarController::class, 'showDeleted'])->name('cars.showDeleted');
+    Route::patch('cars/{id}',[CarController::class, 'restore'])->name('cars.restore');
+    Route::delete('cars/{id}',[CarController::class, 'forceDelete'])->name('cars.forceDelete');
 
 
     
