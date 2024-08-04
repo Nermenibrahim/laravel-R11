@@ -4,6 +4,7 @@ use App\Http\Controllers\CarController;
 use App\Http\Controllers\ClassController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ContactController;
+use App\Http\Controllers\ExampleController;
 use Illuminate\Http\Request;
 
 use Illuminate\Contracts\View\View;
@@ -208,6 +209,7 @@ Route::prefix('accounts')->group(function(){
     Route::get('classes/trashed',[ClassController::class, 'showDeleted'])->name('classes.showDeleted');
     Route::patch('classes/{id}',[ClassController::class, 'restore'])->name('classes.restore');
     Route::delete('classes/{id}',[ClassController::class, 'forceDelete'])->name('classes.forceDelete');
+    
 
 
     
@@ -226,11 +228,13 @@ Route::prefix('accounts')->group(function(){
     Route::get('cars/trashed',[CarController::class, 'showDeleted'])->name('cars.showDeleted');
     Route::patch('cars/{id}',[CarController::class, 'restore'])->name('cars.restore');
     Route::delete('cars/{id}',[CarController::class, 'forceDelete'])->name('cars.forceDelete');
+    //Route::post('upload',[CarController::class, 'upload'])->name('upload');
 
 
     
 
-
+    Route::get('uploadForm',[ExampleController::class, 'uploadForm']);
+    Route::post('upload',[ExampleController::class, 'upload'])->name('upload');
    
 
     

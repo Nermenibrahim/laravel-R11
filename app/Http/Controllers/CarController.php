@@ -25,25 +25,48 @@ class CarController extends Controller
         return view('add_car');
     }
 
+
+   
+
+   
+
+
     /**
      * Store a newly created resource in storage.
      */
     public function store(Request $request)
     {
 
+        
+
        $data = $request->validate([
 
         'carTitle' => 'required|string',
         'description' => 'required|string|max:200',
         'price' => 'required|numeric',
+        'image' => 'required|mimes:png,jpg,jpeg|max:2048',
         
 
 
        ]);
+
+
+       if($file = $request->file('image')){
+        $name = $file->getClientOriginalName();
+        if($file->move('assets/images',$name)){
+            $data['image']= $name;
+           
+        };
+    }
+     
        
+       
+
+        
+
         $data['published'] = isset($request->published) ;
 
-       dd($data);
+       //dd($data);
         
 
         Car::create($data);
@@ -77,14 +100,17 @@ class CarController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        $data = [
-            'carTitle' => $request->carTitle,
-            'description' => $request->description,
-            'price' => $request->price,
-            'published' => isset($request->published),
-    
-           ];
+        $data = $request->validate([
 
+            'carTitle' => 'required|string',
+            'description' => 'required|string|max:200',
+            'price' => 'required|numeric',
+            
+    
+    
+           ]);
+           
+            $data['published'] = isset($request->published) ;
            Car::where('id',$id)->update($data);
 
            return redirect()->route('cars.index');

@@ -31,6 +31,12 @@ class ClassController extends Controller
     public function store(Request $request)
     {
 
+       
+
+       
+
+       
+            
         $data = $request->validate([
 
             'className' => 'required|alpha_num:ascii',
@@ -38,13 +44,22 @@ class ClassController extends Controller
             'price' => 'required|numeric',
             'time1' => 'required',
             'time2' => 'required',
+            'image' => 'required|mimes:png,jpg,jpeg|max:2048',
             
     
     
            ]);
+
+           if($file = $request->file('image')){
+            $name = $file->getClientOriginalName();
+            if($file->move('assets/images',$name)){
+                $data['image']= $name;
+               
+            };
+        }
        
 
-       
+          
             $data['fulled'] = isset($request->fulled) ;
 
            
@@ -52,9 +67,18 @@ class ClassController extends Controller
 
 
 
-           Classe::create($data);
+        Classe::create($data);
         return redirect()->route('classes.index');
 
+
+           
+
+           
+        
+
+
+
+          
 
     }
 
@@ -95,9 +119,9 @@ class ClassController extends Controller
     
            ]);
 
-           $dat['fulled'] = isset($request->fulled) ;
+           $data['fulled'] = isset($request->fulled) ;
 
-           dd($data);
+           //dd($data);
 
            Classe::where('id',$id)->update($data);
 

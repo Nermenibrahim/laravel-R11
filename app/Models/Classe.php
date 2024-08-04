@@ -18,5 +18,6 @@ class Classe extends Model
         'time1',
         'time2',
         'fulled',
+        'image',
     ];
 }

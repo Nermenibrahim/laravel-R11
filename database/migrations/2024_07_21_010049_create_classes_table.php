@@ -20,6 +20,7 @@ return new class extends Migration
             $table->time('time2');
             $table->boolean('fulled');
             $table->softDeletes();
+            $table->string('image',300);
             $table->timestamps();
         });
     }

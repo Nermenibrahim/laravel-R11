@@ -34,6 +34,7 @@
               <th scope="col">time-to</th>
               <th scope="col">time-from</th>
               <th scope="col">fulled</th>
+              <th scope="col">image</th>
               <th scope="col">Edit</th>
               <th scope="col">delete</th>
             </tr>
@@ -48,7 +49,9 @@
               <td>{{$class['capacity']}}</td>
               <td>{{$class['time1']}}</td>
               <td>{{$class['time2']}}</td>
+              
               <td>{{$class['fulled']==1 ? "yes":"No"}}</td>
+              <td>{{$class['image']}}</td>
               <td><a href="{{route('classes.edit', $class['id'])}}">Edit </a></td>
 
               <td>
