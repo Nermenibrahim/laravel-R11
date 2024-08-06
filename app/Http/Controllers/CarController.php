@@ -3,10 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\Models\Car;
+use App\Traits\Common;
 use Illuminate\Http\Request;
 
 class CarController extends Controller
 {
+
+    use Common;
     /**
      * Display a listing of the resource.
      */
@@ -50,19 +53,14 @@ class CarController extends Controller
 
        ]);
 
+       //dd($request);
 
-       if($file = $request->file('image')){
-        $name = $file->getClientOriginalName();
-        if($file->move('assets/images',$name)){
-            $data['image']= $name;
-           
-        };
-    }
+      
      
        
        
 
-        
+        $data['image'] = $this->uploadFile($request->image, 'assets/images');
 
         $data['published'] = isset($request->published) ;
 
@@ -105,10 +103,17 @@ class CarController extends Controller
             'carTitle' => 'required|string',
             'description' => 'required|string|max:200',
             'price' => 'required|numeric',
+            'image' => 'nullable|mimes:png,jpg,jpeg|max:2048'
             
     
     
            ]);
+
+           if($request->hasFile(('image'))){
+            
+            $data['image'] = $this->uploadFile($request->image, 'assets/images');
+
+           }
            
             $data['published'] = isset($request->published) ;
            Car::where('id',$id)->update($data);

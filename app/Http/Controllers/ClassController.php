@@ -3,10 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\Models\Classe;
+use App\Traits\Common;
 use Illuminate\Http\Request;
 
 class ClassController extends Controller
 {
+
+    use Common;
     /**
      * Display a listing of the resource.
      */
@@ -50,20 +53,18 @@ class ClassController extends Controller
     
            ]);
 
-           if($file = $request->file('image')){
-            $name = $file->getClientOriginalName();
-            if($file->move('assets/images',$name)){
-                $data['image']= $name;
-               
-            };
-        }
+           
+            
+            $data['image'] = $this->uploadFile($request->image, 'assets/images');
+
+           
        
 
           
             $data['fulled'] = isset($request->fulled) ;
 
            
-        //dd($data);
+        
 
 
 
@@ -114,10 +115,17 @@ class ClassController extends Controller
             'price' => 'required|numeric',
             'time1' => 'required',
             'time2' => 'required',
+            'image' => 'nullable|mimes:png,jpg,jpeg|max:2048',
             
     
     
            ]);
+
+           if($request->hasFile(('image'))){
+            
+            $data['image'] = $this->uploadFile($request->image, 'assets/images');
+
+           }
 
            $data['fulled'] = isset($request->fulled) ;
 

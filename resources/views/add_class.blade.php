@@ -34,28 +34,38 @@
             <div class="col-md-10">
              
               <input type="text" placeholder="BMW" class="form-control py-2" name="className" />
+              
             </div>
           </div>
+          
           <div class="form-group mb-3 row">
             <label for="" class="form-label col-md-2 fw-bold text-md-end">Price:</label>
             <div class="col-md-10">
               <input type="number" step="0.1" placeholder="Enter price" class="form-control py-2" name="price" />
+              
             </div>
           </div>
+        
           <div class="form-group mb-3 row">
             <label for="" class="form-label col-md-2 fw-bold text-md-end">capacity:</label>
             <div class="col-md-10">
               <input name="capacity" id="" cols="30" rows="5" class="form-control py-2"></input>
+              
             </div>
           </div>
+          
           <hr>
 
           <div class="form-group mb-3 row">
               <label for="" class="form-label col-md-2 fw-bold text-md-end"
                 >Time:</label
+                
               >
               <div class="col-md-10" >
-                <label for="" class="form-label">From <input type="time" class="form-control" name="time1"></label>
+                <label for="" class="form-label">From <input type="time" class="form-control" name="time1">
+                
+              
+              </label>
                 <label for="" class="form-label">To <input type="time" class="form-control" name="time2"></label>
               </div>
             </div>
@@ -67,8 +77,10 @@
       <label class="control-label col-sm-2" for="image">image:</label>
       <div class="col-sm-10">
         <input type="file" class="form-control" id="image" name="image">
+        
       </div>
     </div>
+    
             
             
 
@@ -76,8 +88,10 @@
             <label for="" class="form-label col-md-2 fw-bold text-md-end">fulled:</label>
             <div class="col-md-10">
               <input type="checkbox" class="form-check-input" style="padding: 0.7rem;" name="fulled" />
+              
             </div>
           </div>
+          
           <div class="text-md-end">
             <button type="submit" class="btn mt-4 btn-secondary text-white fs-5 fw-bold border-0 py-2 px-md-5">
               Add Class
