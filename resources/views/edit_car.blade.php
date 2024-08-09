@@ -64,6 +64,14 @@
             @enderror
             </div>
           </div>
+
+          <div class="col-sm-10">
+        <input type="file" class="form-control  py-2 my-1" id="image" name="image"  >
+        <img src="{{asset('assets/images/cars/' .old('image',$car->image))}}" class="img-fluid product-image" alt="">
+      </div>
+    </div>
+
+
           <div class="text-md-end">
             <button class="btn mt-4 btn-secondary text-white fs-5 fw-bold border-0 py-2 px-md-5">
               edit Car

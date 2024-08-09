@@ -59,6 +59,12 @@
               </div>
             </div>
 
+            <div class="col-sm-10">
+        <input type="file" class="form-control  py-2 my-1" id="image" name="image"  >
+        <img src="{{asset('assets/images/' .old('image',$class->image))}}" class="img-fluid product-image" alt="">
+      </div>
+    </div>
+
 
           <div class="form-group mb-3 row">
             <label for="" class="form-label col-md-2 fw-bold text-md-end">fulled:</label>
@@ -66,6 +72,10 @@
               <input type="checkbox" class="form-check-input" style="padding: 0.7rem;" name="fulled"  @checked($class->fulled)/>
             </div>
           </div>
+
+         
+
+
           <div class="text-md-end">
             <button class="btn mt-4 btn-secondary text-white fs-5 fw-bold border-0 py-2 px-md-5">
               edit Class

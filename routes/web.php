@@ -244,7 +244,7 @@ Route::prefix('accounts')->group(function(){
     Route::post('upload',[ExampleController::class, 'upload'])->name('upload');
    
 
-    
+    Route::get('about',[ExampleController::class, 'index']);
     
 
     
@@ -256,3 +256,5 @@ Route::prefix('accounts')->group(function(){
 Route::get('products/create',[ProductController::class, 'create'])->name('products.create');
 Route::post('products',[ProductController::class, 'store'])->name('products.store');
 Route::get('index',[ProductController::class, 'index'])->name('products.index');
+Route::get('{product}/edit',[ProductController::class, 'edit'])->name('products.edit');
+Route::put('{product}',[ProductController::class, 'update'])->name('products.update');

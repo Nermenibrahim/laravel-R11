@@ -50,13 +50,7 @@ class ProductController extends Controller
             $data['image'] = $this->uploadFile($request->image, 'assets/images');
 
            
-       
 
-          
-            
-
-           
-        
 
 
 
@@ -87,7 +81,8 @@ class ProductController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $product = Product::findOrFail($id);
+        return view('edit_product' , compact('product'));
     }
 
     /**
@@ -95,7 +90,27 @@ class ProductController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $data = $request->validate([
+
+            'title' => 'required|string',
+            'price' => 'required|numeric',
+            'description' => 'required|string|max:200',
+            'image' => 'nullable|mimes:png,jpg,jpeg|max:2048'
+            
+    
+    
+           ]);
+
+           if($request->hasFile(('image'))){
+            
+            $data['image'] = $this->uploadFile($request->image, 'assets/images');
+
+           }
+           
+            
+           Product::where('id',$id)->update($data);
+
+           return redirect()->route('products.index');
     }
 
     /**
