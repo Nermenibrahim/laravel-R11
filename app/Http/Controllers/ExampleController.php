@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Student;
 use Illuminate\Http\Request;
 
 class ExampleController extends Controller
@@ -34,6 +35,13 @@ class ExampleController extends Controller
         return view('about' );
     }
 
+
+    public function test()
+    {
+        
+
+        dd(Student::find(4)?->phone->phone_number)   ;
+ }
    
 
 }

@@ -258,3 +258,5 @@ Route::post('products',[ProductController::class, 'store'])->name('products.stor
 Route::get('index',[ProductController::class, 'index'])->name('products.index');
 Route::get('{product}/edit',[ProductController::class, 'edit'])->name('products.edit');
 Route::put('{product}',[ProductController::class, 'update'])->name('products.update');
+
+Route::get('testOnetoOne',[ExampleController::class, 'test']);

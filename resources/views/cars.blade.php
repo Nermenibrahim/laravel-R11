@@ -33,6 +33,7 @@
               <th scope="col">Description</th>
               <th scope="col">Published</th>
               <th scope="col">image</th>
+              
               <th scope="col">Edit</th>
               <th scope="col">delete</th>
               

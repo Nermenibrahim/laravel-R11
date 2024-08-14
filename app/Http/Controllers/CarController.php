@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\Car;
+use App\Models\Category;
 use App\Traits\Common;
 use Illuminate\Http\Request;
+use PhpParser\Node\Stmt\Catch_;
 
 class CarController extends Controller
 {
@@ -25,7 +27,9 @@ class CarController extends Controller
      */
     public function create()
     {
-        return view('add_car');
+        $categories = Category::select('id', 'category_name')->get();
+    
+        return view('add_car', compact('categories'));
     }
 
 
@@ -47,6 +51,7 @@ class CarController extends Controller
         'carTitle' => 'required|string',
         'description' => 'required|string|max:200',
         'price' => 'required|numeric',
+        'category_id' => 'required|integer',
         'image' => 'required|mimes:png,jpg,jpeg|max:2048',
         
 
@@ -60,7 +65,7 @@ class CarController extends Controller
        
        
 
-        $data['image'] = $this->uploadFile($request->image, 'assets/images');
+        $data['image'] = $this->uploadFile($request->image, 'assets/images/cars');
 
         $data['published'] = isset($request->published) ;
 
@@ -79,6 +84,7 @@ class CarController extends Controller
     {
         
         $car = Car::findOrFail($id);
+        
         return view('car-detail' , compact('car'));
         
     }
@@ -90,7 +96,9 @@ class CarController extends Controller
 
     {
         $car = Car::findOrFail($id);
-        return view('edit_car' , compact('car'));
+        $categories =Category::all();
+        
+        return view('edit_car' , compact('car',('categories')));
     }
 
     /**
@@ -98,26 +106,33 @@ class CarController extends Controller
      */
     public function update(Request $request, string $id)
     {
+
+       
+      
         $data = $request->validate([
 
             'carTitle' => 'required|string',
             'description' => 'required|string|max:200',
             'price' => 'required|numeric',
-            'image' => 'nullable|mimes:png,jpg,jpeg|max:2048'
+            'category_id' => 'required|integer',
+            'image' => 'nullable|mimes:png,jpg,jpeg|max:2048',
             
     
     
            ]);
+           
+           
 
            if($request->hasFile(('image'))){
             
-            $data['image'] = $this->uploadFile($request->image, 'assets/images');
+            $data['image'] = $this->uploadFile($request->image, 'assets/images/cars');
 
            }
            
             $data['published'] = isset($request->published) ;
+            
            Car::where('id',$id)->update($data);
-
+           
            return redirect()->route('cars.index');
     }
 
