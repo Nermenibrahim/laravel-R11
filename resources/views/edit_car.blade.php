@@ -24,7 +24,7 @@
     <div class="container my-5">
       <div class="bg-light p-5 rounded">
         <h2 class="fw-bold fs-2 mb-5 pb-2">Edit Car</h2>
-        <form action="{{route('cars.update', $car->id ) }}" method="POST" class="px-md-5">
+        <form action="{{route('cars.update', $car->id ) }}" method="POST" class="px-md-5" enctype="multipart/form-data">
           @csrf
           @method('put')
           <div class="form-group mb-3 row">
@@ -48,30 +48,31 @@
 
           <div class="form-group mb-3 row">
 
-          <label for="" class="form-label col-md-2 fw-bold text-md-end">Category:</label>
+<label for="" class="form-label col-md-2 fw-bold text-md-end">Category:</label>
 
-          <div class="col-md-10">
+<div class="col-md-10">
 
-          <select name="category_id" id=""  class="form-control" >
+  <select name="category_id" id="" class="form-control">
 
-                
-                
-          
-              <option>Select category</option>
-              
-                @foreach($categories as $category)
+    <option value="">Select Category</option>
 
-                <option  value="{{old('category_name',$category->category_name)}}" {{  $category->id  === $car->category_id ? 'selected':' '}}  > {{$category->category_name}} </option>
+  @foreach($categories as $category)
 
-             
-               
-                @endforeach
-              
+    <option value="{{$category->id}}" @selected(old('category_id', $car->category_id) == $category->id)>{{$category->category_name}}</option>
 
-  
+  @endforeach
 
-</select>
-          </div>
+  </select>
+
+  @error('category_id')
+
+    <div class="alert alert-warning">{{$message}}</div>
+
+  @enderror
+
+</div>
+
+</div>
           </div>
           <br>
 

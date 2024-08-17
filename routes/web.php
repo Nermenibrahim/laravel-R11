@@ -5,7 +5,9 @@ use App\Http\Controllers\ClassController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\ExampleController;
+use App\Http\Controllers\MailController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\SendMailController;
 use Illuminate\Http\Request;
 
 use Illuminate\Contracts\View\View;
@@ -183,14 +185,7 @@ Route::prefix('accounts')->group(function(){
 
 
 
-    Route::get('contact-us', function () {
-        return view('contact-us');
-    });
-
-
-    Route::post('/contact-data', function (Request $request ) {
-        return($request->all());
-    });
+   
 
   
 
@@ -223,7 +218,7 @@ Route::prefix('accounts')->group(function(){
 
         //CarController
 
-    Route::prefix('cars')->controller(CarController::class)->as('cars.')->group(function() {
+    Route::prefix('cars')->controller(CarController::class)->as('cars.')->middleware('verified')->group(function() {
         
         Route::get('', 'index')->name('index');
         Route::get('create','create')->name(('create'));
@@ -238,7 +233,7 @@ Route::prefix('accounts')->group(function(){
     
     
 
-    });
+    }) ;
 
     Route::get('uploadForm',[ExampleController::class, 'uploadForm']);
     Route::post('upload',[ExampleController::class, 'upload'])->name('upload');
@@ -260,3 +255,29 @@ Route::get('{product}/edit',[ProductController::class, 'edit'])->name('products.
 Route::put('{product}',[ProductController::class, 'update'])->name('products.update');
 
 Route::get('testOnetoOne',[ExampleController::class, 'test']);
+
+
+Auth::routes(['verify' => true]
+
+
+
+);
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+
+
+
+
+
+
+Route::get('contact-us', function () {
+    return view('contact-us');
+ });
+
+
+ Route::post('/send-mail', [MailController::class, 'store'])->name('email.store');
+

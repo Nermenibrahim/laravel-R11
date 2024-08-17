@@ -51,7 +51,7 @@ class CarController extends Controller
         'carTitle' => 'required|string',
         'description' => 'required|string|max:200',
         'price' => 'required|numeric',
-        'category_id' => 'required|integer',
+        'category_id' => 'required|exists:categories,id',
         'image' => 'required|mimes:png,jpg,jpeg|max:2048',
         
 
@@ -83,8 +83,8 @@ class CarController extends Controller
     public function show(string $id)
     {
         
-        $car = Car::findOrFail($id);
-        
+        $car = Car::with('category')->findOrFail($id);
+
         return view('car-detail' , compact('car'));
         
     }
@@ -96,7 +96,7 @@ class CarController extends Controller
 
     {
         $car = Car::findOrFail($id);
-        $categories =Category::all();
+        $categories = Category::select('id', 'category_name')->get();
         
         return view('edit_car' , compact('car',('categories')));
     }
@@ -114,14 +114,18 @@ class CarController extends Controller
             'carTitle' => 'required|string',
             'description' => 'required|string|max:200',
             'price' => 'required|numeric',
-            'category_id' => 'required|integer',
+            'category_id' => 'required|exists:categories,id',
             'image' => 'nullable|mimes:png,jpg,jpeg|max:2048',
             
     
     
            ]);
            
-           
+          // dd($request->all());
+
+
+
+
 
            if($request->hasFile(('image'))){
             
