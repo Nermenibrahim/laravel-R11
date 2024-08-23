@@ -11,6 +11,8 @@ use App\Http\Controllers\SendMailController;
 use Illuminate\Http\Request;
 
 use Illuminate\Contracts\View\View;
+use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
+use Mcamara\LaravelLocalization\Middleware\LaravelLocalizationViewPath;
 
 Route::get('/', function () {
     return view('welcome');
@@ -218,22 +220,40 @@ Route::prefix('accounts')->group(function(){
 
         //CarController
 
-    Route::prefix('cars')->controller(CarController::class)->as('cars.')->middleware('verified')->group(function() {
-        
-        Route::get('', 'index')->name('index');
-        Route::get('create','create')->name(('create'));
-        Route::post('','store')->name('store');
-        Route::get('{car}/edit', 'edit')->name('edit');
-        Route::put('{car}', 'update')->name('update');
-        Route::get('detail/{id}', 'show')->name('detail');
-        Route::get('delete/{id}', 'destroy')->name('destroy');
-        Route::get('trashed', 'showDeleted')->name('showDeleted');
-        Route::patch('{id}', 'restore')->name('restore');
-        Route::delete('{id}', 'forceDelete')->name('forceDelete');
-    
-    
 
-    }) ;
+        Route::group(
+
+            [
+            
+                'prefix' => LaravelLocalization::setLocale(),
+            
+                'middleware' => [ 'localeSessionRedirect', 'localizationRedirect', 'localeViewPath' ]
+            
+            ], function(){  Route::prefix('cars')->controller(CarController::class)->as('cars.')->group(function() {
+        
+                Route::get('', 'index')->name('index');
+                Route::get('create','create')->name(('create'));
+                Route::post('','store')->name('store');
+                Route::get('{car}/edit', 'edit')->name('edit');
+                Route::put('{car}', 'update')->name('update');
+                Route::get('detail/{id}', 'show')->name('detail');
+                Route::get('delete/{id}', 'destroy')->name('destroy');
+                Route::get('trashed', 'showDeleted')->name('showDeleted');
+                Route::patch('{id}', 'restore')->name('restore');
+                Route::delete('{id}', 'forceDelete')->name('forceDelete');
+            
+            
+        
+            }) ;
+            
+            });
+            
+            
+            
+            
+            
+
+   
 
     Route::get('uploadForm',[ExampleController::class, 'uploadForm']);
     Route::post('upload',[ExampleController::class, 'upload'])->name('upload');
