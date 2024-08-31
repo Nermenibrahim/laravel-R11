@@ -18,7 +18,12 @@ return new class extends Migration
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->boolean('expired')->default(0);
-            $table->string('mobile');
+            $table->string('mobile')->nullable();
+            $table->string('github_id')->nullable();
+
+            $table->string('github_token')->nullable();
+
+            $table->string('github_refresh_token')->nullable();
             $table->rememberToken();
             $table->timestamps();
         });

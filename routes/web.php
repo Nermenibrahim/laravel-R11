@@ -8,6 +8,7 @@ use App\Http\Controllers\ExampleController;
 use App\Http\Controllers\MailController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\SendMailController;
+use App\Http\Controllers\SocialController;
 use Illuminate\Http\Request;
 
 use Illuminate\Contracts\View\View;
@@ -301,3 +302,6 @@ Route::get('contact-us', function () {
 
  Route::post('/send-mail', [MailController::class, 'store'])->name('email.store');
 
+ Route::get('auth/github/redirect', [SocialController::class, 'redirect'])->name('socialLogin');
+
+ Route::get('auth/github/callback', [SocialController::class, 'callback']);
